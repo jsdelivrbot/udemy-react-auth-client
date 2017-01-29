@@ -15,6 +15,7 @@ export function signinUser({ email, password }) {
       dispatch({ type: AUTH_USER });
 
       // * save jwt token
+      localStorage.setItem('token', response.data.token);
 
       // * redirect to authorized section
       browserHistory.push('/feature');
