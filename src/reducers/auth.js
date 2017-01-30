@@ -1,6 +1,11 @@
 import { AUTH_USER, UNAUTH_USER, AUTH_ERROR } from '../actions/types';
 
-export default (state = {}, action) => {
+const INITIAL_STATE = {
+  error: null,
+  authenticated: false,
+}
+
+export default (state = INITIAL_STATE, action) => {
   switch(action.type) {
     case AUTH_USER:
       return { ...state, authenticated: true };
