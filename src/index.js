@@ -14,10 +14,19 @@ import Feature from './components/feature';
 import Welcome from './components/welcome';
 import RequireAuth from './components/auth/require_auth';
 
-const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
+import { AUTH_USER } from './actions/types';
 
+const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
+const store = createStoreWithMiddleware(reducers);
+
+const token = localStorage.getItem('token');
+// if we have a token, consider user signed in
+if (token) {
+  // need to update application state
+  store.dispatch({ type: AUTH_USER });
+}
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
+  <Provider store={store}>
     <Router history={browserHistory}>
       <Route path='/' component={App}>
       <IndexRoute component={Welcome} />
